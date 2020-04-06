@@ -24,28 +24,44 @@ namespace Cw3.DAL
             return _students;
         }
 
-        public List<Student> AddStudent(Student s)
+        public void AddStudent(Student s)
         {
             var List = new List<Student>(_students);
             List.Add(s);
-            return List;
+            _students = List;
         }
 
         public void UpdateStudent(Student s, int id)
         {
-            var tmpList = RemoveStudent(id);
-            AddStudent(s);
+            RemoveStudent(id);
+            var tmpList = _students.ToList();
+            tmpList.Add(s);
+            _students = tmpList;
 
         }
 
-        public List<Student> RemoveStudent(int id)
+        public void RemoveStudent(int id)
         {
             var tmpStudentList = GetStudents().Where(s => s.IdStudent != id).ToList();
 
- //           var modifiedStudentList = tmpStudentList.Where(s => s.IdStudent == id).ToList();
+            var modifiedStudentList = tmpStudentList.Where(s => s.IdStudent == id).ToList();
 
-            return tmpStudentList;
+            _students = tmpStudentList;
 
+        }
+
+
+        public Student GetStudent(int id)
+        {
+            var tmp = _students.ToList();
+
+            return tmp.ElementAt(id);
+        }
+
+        public int ListLength()
+        {
+            var tmp = _students.ToList();
+            return tmp.Count;
         }
     }
 }

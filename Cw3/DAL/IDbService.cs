@@ -10,10 +10,14 @@ namespace Cw3.DAL
     {
         public IEnumerable<Student> GetStudents();
 
-        public List<Student> AddStudent(Student s);
+        public void AddStudent(Student s);
 
-        public List<Student> RemoveStudent(int id);
+        public void RemoveStudent(int id);
 
         public void UpdateStudent(Student s, int id);
+
+        public Student GetStudent(int id);
+
+        public int ListLength();
     }
 }

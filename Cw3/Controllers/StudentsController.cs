@@ -20,6 +20,7 @@ namespace Cw3.Controllers
             _dbService = dbService;
         }
 
+
         [HttpGet]
         public IActionResult GetStudent(string orderBy)
         {
@@ -30,13 +31,11 @@ namespace Cw3.Controllers
         [HttpGet("{id}")]
         public IActionResult GetStudent(int id)
         {
-            if(id == 1)
+            if (id < _dbService.ListLength())
             {
-                return Ok("Kowalski");
-            } else if(id == 2)
-            {
-                return Ok("Malewski");
+                return Ok(_dbService.GetStudent(id));
             }
+
             return NotFound("Nie znaleziono studenta");
         }
 
@@ -57,8 +56,10 @@ namespace Cw3.Controllers
         [HttpDelete("{id}")]
         public IActionResult RemoveStudent(int id)
         {
+
             _dbService.RemoveStudent(id);
-            return Ok("Usuwanie ukonczone");
+
+            return Ok("Usuwanie zakonczono");
         }
 
 
